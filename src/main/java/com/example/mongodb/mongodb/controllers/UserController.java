@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,6 +48,14 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable String id){
         service.delete(id);
+        return  ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> update(@RequestBody UserDTO userDTO, @PathVariable String id){
+        User obj = service.fromDTO(userDTO);
+        obj.setId(id);
+        obj = service.update(obj);
         return  ResponseEntity.noContent().build();
     }
 }
