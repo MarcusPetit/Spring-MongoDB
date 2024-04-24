@@ -1,5 +1,6 @@
 package com.example.mongodb.mongodb.services;
 
+import com.example.mongodb.mongodb.dto.UserDTO;
 import com.example.mongodb.mongodb.entitides.User;
 import com.example.mongodb.mongodb.repository.UserRepository;
 import com.example.mongodb.mongodb.services.exception.ObjectNotFoundException;
@@ -22,6 +23,19 @@ public class UserService {
         Optional<User> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Id não encontrado"));
 
+    }
+
+    public User insert(User obj){
+        return repository.insert(obj);
+    }
+
+    public  void delete(String id){
+        findById(id);
+        repository.deleteById(id);
+    }
+
+    public User fromDTO(UserDTO objDTO){
+        return new User(objDTO.getId(),objDTO.getName(),objDTO.getEmail());
     }
 
 
