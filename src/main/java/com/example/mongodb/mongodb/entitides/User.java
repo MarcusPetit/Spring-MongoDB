@@ -6,8 +6,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.catalina.LifecycleState;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Document
@@ -19,6 +23,8 @@ public class User {
     private String id;
     private String name;
     private String email;
+    @DBRef(lazy = true)
+    private List<Post> post = new ArrayList<>();
 
     public User() {
     }
