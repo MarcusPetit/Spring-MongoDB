@@ -1,6 +1,7 @@
 package com.example.mongodb.mongodb.controllers;
 
 import com.example.mongodb.mongodb.dto.UserDTO;
+import com.example.mongodb.mongodb.entitides.Post;
 import com.example.mongodb.mongodb.entitides.User;
 import com.example.mongodb.mongodb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,12 @@ public class UserController {
         obj.setId(id);
         obj = service.update(obj);
         return  ResponseEntity.noContent().build();
+    }
+
+    //Retornar as postagens do usuario
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> findPost(@PathVariable String id){
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPost());
     }
 }
